@@ -5,16 +5,13 @@ import './App.css'
 import { lazy } from 'react'
 import Led from './Led.jsx'
 function App() {
-  const Led = lazy(()=> delayForDemo(import('./Led.jsx')) )
+  const Led = lazy(()=> import('./Led.jsx'))
   const LazyLoading = lazy(() => delayForDemo(import('./LazyLoading.jsx')));
   const [count, setCount] = useState(0)
 
   return (
     <>
-    <Suspense fallback={
-<div className="skeleton w-full h-96"></div>
-
-}>
+    <Suspense>
   <Led></Led>
   {/* <LazyLoading></LazyLoading> */}
 </Suspense>
