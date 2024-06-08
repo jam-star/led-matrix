@@ -21,6 +21,11 @@ function Led() {
 const layout=[1,2,3,4,5,6,7,8]
 
     function sendData(){
+      set(modeDocRef, 0).then(
+        ()=>
+        console.log('fire')
+    ).catch((error)=>
+console.log(error))
         let finalArray=[]
 
         console.log(matrix)
