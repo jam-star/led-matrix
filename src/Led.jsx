@@ -7,6 +7,7 @@ function Led() {
 
     const db=getDatabase(firebaseDb);
     const newDocRef=ref(db, "array");
+    const modeDocRef=ref(db, "mode");
     const [matrix, setMatrix]=useState([[0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0],
@@ -58,6 +59,18 @@ const layout=[1,2,3,4,5,6,7,8]
          console.log(matrix)
     }
 
+    const changeMode=(isFireMode)=>{
+
+ 
+        set(modeDocRef, isFireMode?1:0).then(
+          ()=>
+          console.log('fire')
+      ).catch((error)=>
+  console.log(error))
+
+ 
+    }
+
 
     return (
         <div >
@@ -65,7 +78,7 @@ const layout=[1,2,3,4,5,6,7,8]
             <div key={row}>
               {layout.map((l, column) => (
                 <button 
-                className={`btn btn-circle ${matrix[row][column] === 0 ? 'bg-base-200' : 'bg-primary'} `} 
+                className={`btn-sm btn-circle sm:btn-md ${matrix[row][column] === 0 ? 'bg-base-200' : 'bg-primary'} `} 
                 key={column} 
                 onClick={() => handleChange(row, column)}
               >
@@ -81,6 +94,15 @@ const layout=[1,2,3,4,5,6,7,8]
           
           <button className = ' btn btn-primary' onClick={sendData}>Upload</button>
         </div>
+        <div className='flex justify-center gap-4 m-4'>
+        <label className="cursor-pointer label flex gap-2">
+
+
+      <span className="label-text text-lg font-bold">Fire Mode</span> 
+      <input type="checkbox" className="toggle toggle-lg toggle-error" onChange={(e)=> {changeMode(e.target.checked)}}/>
+    </label>
+        </div>
+
         
         
         </div>
